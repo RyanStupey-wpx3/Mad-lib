@@ -1,4 +1,4 @@
-import react, {Component} from 'react';
+import React, {Component} from 'react';
 
 
 class Input extends Component {
@@ -6,12 +6,17 @@ class Input extends Component {
         super(props) 
 
         this.state = {
-
+            word: ""
         }
     }
 
     render(){
-        return(<input type="text"/>)
+        return(
+            <div>
+                <input onChange={(e) => {this.setState({word: e.target.value})}} type="text" placeholder={`please enter a ${this.props.type}: `}/>
+                <button onClick={() => this.props.submit(this.state.word, this.props.type)}>click</button>
+            </div>
+        )
     }
 }
 

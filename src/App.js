@@ -2,87 +2,47 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+import Input from './Input'
+import Story from './Story'
 
 class App extends Component {
   constructor(props){
     super(props)
 
     this.state = {
-      message: '',
       verb:[],
       noun:[], 
       adjective:[],
-      showHide: true,
-      showMessage: false,
       story: {
+        text: 'this will be story',
         verb: 1,
         noun: 2,
         adjective: 3, 
       }
     }
-    this.stateHandler = this.stateHandler.bind(this)
-    this.showInput = this.showInput.bind(this)
+    this.submitWord = this.submitWord.bind(this)
   }
+  
 
-  componentDidMount(){
-    axios.get('/api/message')
-    .then((resp) => {
-      this.setState({
-        message: resp.data
-      })
-    })
-    .catch((err) => {
-      console.log('err', err)
-    })
-  }
+  submitWord(word, type){
+    let newArr = this.state[type].slice()
+    newArr.push(word)
 
-  stateHandler(prop, val){
-    let newArray = [...this.state[prop]]
-    
-  }
+    let newStory = Object.assign({}, this.state.story)
+    newStory[type]--
 
-  showInput(){
-    // axios.post('/api/')
     this.setState({
-      showHide: false,
-      showMessage: true,
+      story: newStory,
+      [type]: newArr
     })
   }
-
-  showNoun(){
-    return(<div><input type="text" onChange={(e) => {this.stateHandler('noun', e.target.value)}} placeholder="noun" required/><input type="submit" value="submit"/></div>)
-  }
-  showVerb(){
-    return(<div><input type="text" onChange={(e) => {this.stateHandler('verb', e.target.value)}} placeholder="verb" required/><input type="submit" value="submit"/></div>)
-  }
-  showAdjective(){
-    return(<div><input type="text" onChange={(e) => {this.stateHandler('adjective', e.target.value)}} placeholder="adjective" required/><input type="submit" value="submit"/></div>)
-  }
-
   render() {
-    
-    for(var i = 0; i<this.state.story.noun; i++){
-      
-    }
-
 
     console.log('state', this.state)
     return (
       <div className="App">
-        <header className="App-header">
-        </header>
-        
-        {this.state.showHide && 
-          <div className={this.state.showHide}>
-          
-            <form>
-               <input type="submit" onSubmit={this.showInput}/>
-            </form>  
-          </div>}
-          {this.state.showMessage && <div>you have submitted your content</div>}
-          
-
-
+        {this.state.story.noun > 0 ? <Input type={"noun"} submit={this.submitWord}/> : (this.state.story.verb > 0 ? <Input type={"verb"} submit={this.submitWord}/> : (this.state.story.adjective > 0 ? <Input type={"adjective"} submit={this.submitWord}/> : <Story verb={this.state.verb} noun={this.state.noun} 
+        adjective={this.state.adjective} text={this.state.story.text}/>))}
       </div>
     );
   }
