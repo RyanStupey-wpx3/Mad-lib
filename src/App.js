@@ -14,7 +14,7 @@ class App extends Component {
       noun:[], 
       adjective:[],
       story: {
-        text: 'this will be story',
+        text: "here is a noun => $%n this is another noun => $%n and a verb => $%v with three adjectives => $%a and => $%a and => $%a",
         verb: 1,
         noun: 2,
         adjective: 3, 
@@ -42,7 +42,7 @@ class App extends Component {
     return (
       <div className="App">
         {this.state.story.noun > 0 ? <Input type={"noun"} submit={this.submitWord}/> : (this.state.story.verb > 0 ? <Input type={"verb"} submit={this.submitWord}/> : (this.state.story.adjective > 0 ? <Input type={"adjective"} submit={this.submitWord}/> : <Story verb={this.state.verb} noun={this.state.noun} 
-        adjective={this.state.adjective} text={this.state.story.text}/>))}
+        adj={this.state.adjective} story={this.state.story.text}/>))}
       </div>
     );
   }

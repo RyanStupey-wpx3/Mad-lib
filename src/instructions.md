@@ -15,10 +15,20 @@ figure out:
 
 
     string.replace & regex for each array 
+    /1noun/
+    /2verb/
+    /3adjective/
+
+    const story = 'there was a 1noun, this 2noun had just 1verb over to the huge house'
+    story.replace('1noun')
+    
+    
+
         === replace them all at the same time
 
 
-        add story to db
+
+        add story(FROM APP.JS) to db
 
         submit completed story to db 
 
